@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Shack.Dto;
+using Shack.Application.Dto;
+using Shack.Application.UseCasese;
 
 namespace Shack.Controllers;
 
@@ -7,19 +8,27 @@ namespace Shack.Controllers;
 [Route("dashboards")]
 public class DashboardsController : ControllerBase
 {
-  [HttpGet]
-  public ActionResult<DashboardDto> Get()
+  public readonly GetAllDashboardsUseCase _getAllDashboardsUseCase;
+  public readonly GetDashboardByIdUseCase _getDashboardByIdUseCase;
+  public DashboardsController()
   {
-    var dashboardOne = new DashboardDto(1, "https://image.url", "promo", "sub", "tit");
-    var dashboardTwo = new DashboardDto(2, "https://image.url", "promo_two", "subtwo", "titTat");
-    var response = new List<DashboardDto> { dashboardOne, dashboardTwo };
-    return Ok(response);
+    // TODO use DI instead
+    _getAllDashboardsUseCase = new GetAllDashboardsUseCase(null);
+    _getDashboardByIdUseCase = new GetDashboardByIdUseCase(null);
+
+  }
+
+  [HttpGet]
+  public async Task<ActionResult<IEnumerable<DashboardDto>>> GetOne()
+  {
+    var result = await _getAllDashboardsUseCase.ExecuteAsync();
+    return Ok(result);
   }
 
   [HttpGet("one")]
-  public ActionResult<IEnumerable<DashboardDto>> GetOne()
+  public async Task<ActionResult<DashboardDto>> Get()
   {
-    var dashboardOne = new DashboardDto(1, "https://image.url", "promo", "sub", "tit");
-    return Ok(dashboardOne);
+    var result = await _getDashboardByIdUseCase.ExecuteAsync(1);
+    return result;
   }
 }

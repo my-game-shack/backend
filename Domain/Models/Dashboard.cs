@@ -1,6 +1,6 @@
-namespace Shack.Dto;
+namespace Shack.Domain.Models;
 
-public record DashboardDto(
+public record Dashboard(
   int Id,
   string Image,
   string Title,
