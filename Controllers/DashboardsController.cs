@@ -8,18 +8,18 @@ namespace Shack.Controllers;
 public class DashboardsController : ControllerBase
 {
   [HttpGet]
-  public IEnumerable<DashboardDto> Get()
+  public ActionResult<DashboardDto> Get()
   {
-    var dashboardOne = new DashboardDto { id = 1, image = "https://image.url", promotionText = "promo", subtitle = "sub", title = "tit" };
-    var dashboardTwo = new DashboardDto { id = 2, image = "https://image.url", promotionText = "promo_two", subtitle = "subtwo", title = "titTat" };
+    var dashboardOne = new DashboardDto(1, "https://image.url", "promo", "sub", "tit");
+    var dashboardTwo = new DashboardDto(2, "https://image.url", "promo_two", "subtwo", "titTat");
     var response = new List<DashboardDto> { dashboardOne, dashboardTwo };
-    return response;
+    return Ok(response);
   }
 
   [HttpGet("one")]
-  public DashboardDto GetOne()
+  public ActionResult<IEnumerable<DashboardDto>> GetOne()
   {
-    var dashboardOne = new DashboardDto { id = 1, image = "https://image.url", promotionText = "promo", subtitle = "sub", title = "tit" };
-    return dashboardOne;
+    var dashboardOne = new DashboardDto(1, "https://image.url", "promo", "sub", "tit");
+    return Ok(dashboardOne);
   }
 }
