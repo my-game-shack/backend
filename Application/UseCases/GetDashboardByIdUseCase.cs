@@ -9,8 +9,7 @@ public class GetDashboardByIdUseCase
   private readonly IDashboardsRepository _dashboardsRepository;
   public GetDashboardByIdUseCase(IDashboardsRepository dashboardsRepository)
   {
-    // TODO use DI instead
-    _dashboardsRepository = new DashboardsRepository();
+    _dashboardsRepository = dashboardsRepository;
   }
 
   public async Task<DashboardDto> ExecuteAsync(int id)

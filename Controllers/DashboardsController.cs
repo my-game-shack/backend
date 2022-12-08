@@ -10,11 +10,10 @@ public class DashboardsController : ControllerBase
 {
   public readonly GetAllDashboardsUseCase _getAllDashboardsUseCase;
   public readonly GetDashboardByIdUseCase _getDashboardByIdUseCase;
-  public DashboardsController()
+  public DashboardsController(GetAllDashboardsUseCase getAllDashboardsUseCase, GetDashboardByIdUseCase getDashboardByIdUseCase)
   {
-    // TODO use DI instead
-    _getAllDashboardsUseCase = new GetAllDashboardsUseCase(null);
-    _getDashboardByIdUseCase = new GetDashboardByIdUseCase(null);
+    _getAllDashboardsUseCase = getAllDashboardsUseCase;
+    _getDashboardByIdUseCase = getDashboardByIdUseCase;
 
   }
 
